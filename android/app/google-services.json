@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "619576085482",
+    "project_id": "mynotes-flupro",
+    "storage_bucket": "mynotes-flupro.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:619576085482:android:054088488dd221bbca8093",
+        "android_client_info": {
+          "package_name": "com.app.mynotes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "619576085482-cubvp29viatbajs67octi83ev7c23bva.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDycuPZ_1baRzUlT2-BiPMnuUPXQDc_Vp4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "619576085482-cubvp29viatbajs67octi83ev7c23bva.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
