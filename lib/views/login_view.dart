@@ -78,12 +78,12 @@ class _LoginViewState extends State<LoginView> {
                     Navigator.of(context).pushNamed(verifyEmailRoute);
                   }
                 }
-              } on UserNotFoundAuthException catch (e) {
+              } on UserNotFoundAuthException {
                 await showErrorDialog(
                   context,
                   'User not found',
                 );
-              } on WrongPasswordAuthException catch (e) {
+              } on WrongPasswordAuthException {
                 await showErrorDialog(
                   context,
                   'Wrong Password',
