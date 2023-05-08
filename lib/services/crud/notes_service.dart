@@ -22,6 +22,8 @@ class NotesService {
     } on UserNotFound {
       final createdUser = await createUser(email: email);
       return createdUser;
+    } catch (e) {
+      rethrow;
     }
   }
 
@@ -37,6 +39,14 @@ class NotesService {
       throw DatabaseIsNotOpen();
     } else {
       return db;
+    }
+  }
+
+  Future<void> _ensureDbIsOpen() async {
+    try {
+      await open();
+    } on DatabaseAlreadyOpenException {
+      //empty
     }
   }
 
@@ -72,6 +82,7 @@ class NotesService {
   }
 
   Future<void> deleteUser({required String email}) async {
+    await _ensureDbIsOpen();
     final db = _getDatbaseOrThrow();
     final deletedCount = await db.delete(
       userTable,
@@ -84,6 +95,7 @@ class NotesService {
   }
 
   Future<DatabaseUser> createUser({required String email}) async {
+    await _ensureDbIsOpen();
     final db = _getDatbaseOrThrow();
     final results = await db.query(
       userTable,
@@ -107,6 +119,7 @@ class NotesService {
   }
 
   Future<DatabaseUser> getUser({required String email}) async {
+    await _ensureDbIsOpen();
     final db = _getDatbaseOrThrow();
     final results = await db.query(
       userTable,
@@ -123,6 +136,7 @@ class NotesService {
   }
 
   Future<DatabaseNote> createNote({required DatabaseUser owner}) async {
+    await _ensureDbIsOpen();
     final db = _getDatbaseOrThrow();
 
     final user = await getUser(email: owner.email);
@@ -168,6 +182,7 @@ class NotesService {
   }
 
   Future<int> deleteAllNotes() async {
+    await _ensureDbIsOpen();
     final db = _getDatbaseOrThrow();
     final numberOfDeletions = await db.delete(noteTable);
     _notes = [];
@@ -176,6 +191,7 @@ class NotesService {
   }
 
   Future<DatabaseNote> getNote({required int id}) async {
+    await _ensureDbIsOpen();
     final db = _getDatbaseOrThrow();
     final note = await db.query(
       noteTable,
@@ -196,6 +212,7 @@ class NotesService {
   }
 
   Future<Iterable<DatabaseNote>> getAllNotes() async {
+    await _ensureDbIsOpen();
     final db = _getDatbaseOrThrow();
     final notes = await db.query(noteTable);
 
@@ -204,13 +221,14 @@ class NotesService {
 
   Future<DatabaseNote> updateNote(
       {required DatabaseNote note, required String text}) async {
+    await _ensureDbIsOpen();
     final db = _getDatbaseOrThrow();
 
     //make sure note exists
     await getNote(id: note.id);
 
     //update bd
-    final updatedNote = db.update(noteTable, {
+    final updatedNote = await db.update(noteTable, {
       textColumn: text,
       isSyncedWithCloudColumn: 0,
     });
