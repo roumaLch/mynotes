@@ -94,9 +94,8 @@ class _NotesViewState extends State<NotesView> {
       ),
       floatingActionButton: FloatingActionButton(
           onPressed: () {
-            Navigator.of(context).pushNamedAndRemoveUntil(
+            Navigator.of(context).pushNamed(
               newNoteRoute,
-              (_) => false,
             );
           },
           child: const Icon(Icons.add)),
