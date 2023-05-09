@@ -1,7 +1,4 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:mynotes/constants/routes.dart';
 import 'package:mynotes/services/auth/auth_service.dart';
 import 'package:mynotes/services/crud/notes_service.dart';
 
@@ -99,8 +96,8 @@ class _NewNotesViewState extends State<NewNotesView> {
           builder: (context, snapshot) {
             switch (snapshot.connectionState) {
               case ConnectionState.done:
-                // _note = snapshot.data as DatabaseNote;
-                // _setupTextControllerListener();
+                _note = snapshot.data as DatabaseNote;
+                _setupTextControllerListener();
                 return TextField(
                     controller: _textController,
                     keyboardType: TextInputType.multiline,
