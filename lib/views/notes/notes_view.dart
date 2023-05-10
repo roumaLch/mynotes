@@ -37,9 +37,8 @@ class _NotesViewState extends State<NotesView> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.of(context).pushNamedAndRemoveUntil(
+              Navigator.of(context).pushNamed(
                 newNoteRoute,
-                (_) => false,
               );
             },
             icon: const Icon(Icons.add),
@@ -58,7 +57,6 @@ class _NotesViewState extends State<NotesView> {
                       );
                     }
                   }
-                  break;
               }
             },
             itemBuilder: (context) {

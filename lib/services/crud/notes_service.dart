@@ -238,10 +238,15 @@ class NotesService {
     await getNote(id: note.id);
 
     //update bd
-    final updatedNote = await db.update(noteTable, {
-      textColumn: text,
-      isSyncedWithCloudColumn: 0,
-    });
+    final updatedNote = await db.update(
+      noteTable,
+      {
+        textColumn: text,
+        isSyncedWithCloudColumn: 0,
+      },
+      where: '$idColumn = ?',
+      whereArgs: [note.id],
+    );
 
     if (updatedNote == 0) {
       throw CouldNotUpdateNote();
