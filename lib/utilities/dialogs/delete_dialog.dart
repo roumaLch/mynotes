@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:mynotes/utilities/generic_dialog.dart';
 
-Future<void> showDeleteDialog(
+Future<bool> showDeleteDialog(
   BuildContext context,
-  String text,
 ) {
-  return showGenericDialog(
+  return showGenericDialog<bool>(
     context: context,
-    title: 'An error occured',
-    content: text,
+    title: 'Log out',
+    content: 'Are you sure you want to log out?',
     optionsBuilder: () => {
-      'OK': null,
+      'Cancel': false,
+      'Yes': true,
     },
+  ).then(
+    (value) => value ?? false,
   );
 }
